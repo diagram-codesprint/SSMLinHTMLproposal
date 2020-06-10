@@ -29,9 +29,11 @@ Givent the short period allowed for this Sprint, attempt to use existing code wh
  
 ## Background Reading and Resources
 
-W3C Pronunciation Explainer Document
+### Explainer: Improving Spoken Presentation on the Web
+https://www.w3.org/TR/pronunciation-explainer/
 
-W3C Pronunciation Gap Analysis and Use Cases (Working Draft)
+### W3C Pronunciation Gap Analysis and Use Cases (Working Draft)
+https://www.w3.org/TR/pronunciation-gap-analysis-and-use-cases/
 
 ## Examples
 
