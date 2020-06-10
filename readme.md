@@ -1,4 +1,5 @@
-# Proposal for Including SSML in HTML via a JSON Model
+# DIAGRAM Code Sprint 2020 - Authoring Tool for SSML in HTML Content
+## Based on a Proposal for Including SSML in HTML via a JSON Model
 
 Currently, there is no standards-based mechanism for incorporating SSML into HTML to provide pronunciation or presentational hinting to assistive technologies which render text using text to speech synthesis (such as screen readers and read aloud tools). This issue has been previously shared with the WAI-ARIA group at TPAC 2016 [1]. 
 
