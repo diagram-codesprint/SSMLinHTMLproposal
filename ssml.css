@@ -1,6 +1,45 @@
-body {font-family: sans-serif;}
-.codebox {font-family: courier; border: solid 1px black; background-color: #FFDEAD; margin: 5px; padding: 5px;}
-#result::before {content: 'Original Authored Source: '; font-family: sans-serif; color: blue; font-weight: bold;}
-#pstruct::before {content: 'Converted Source: '; font-family: sans-serif; color: blue; font-weight: bold;}
-button {font-size: 1.2em;}
-.selectedText {font-weight:bold; color:red;}
+body {
+    font-family: sans-serif;
+}
+
+.codebox {
+    font-family: courier;
+    border: solid 1px black;
+    background-color: #FFDEAD;
+    margin: 5px;
+    padding: 5px;
+}
+
+#result::before {
+    content: 'Original Authored Source: ';
+    font-family: sans-serif;
+    color: blue;
+    font-weight: bold;
+}
+
+#pstruct::before {
+    content: 'Converted Source: ';
+    font-family: sans-serif;
+    color: blue;
+    font-weight: bold;
+}
+
+button {
+    font-size: 1.2em;
+}
+
+.selectedText {
+    font-weight: bold;
+    color: red;
+}
+
+body {
+    margin: 0;
+}
+
+.leftSide, .rightSide {
+    position: relative;
+    width: 50vw;
+    height: 100vh;
+    float: left;
+}
