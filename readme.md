@@ -1,6 +1,17 @@
 # DIAGRAM Code Sprint 2020 - Authoring Tool for SSML in HTML Content
 ## Based on a Proposal for Including SSML in HTML via a JSON Model
 
+Project lead: Irfan Ali 
+Project duration:  June 10th – June 12th  
+Starting Group: Irfan,  Laura, Neil and Sina 
+ 
+## Description 
+ 
+The need to provide pronunciation and spoken presentation guidance for text to speech synthesizers is critical in educational contexts. Mispronunciations, numeric values read in an unnatural manner, and lack of pauses during spoken presentation of complex content are among the problems that may impact students (and others) who depend upon spoken infromation using Text to Speech Synthesis (TTS).
+
+A growing number of platforms, including voice assistants, support SSML, the W3C Speech Synthesis Markup Language. However, there are gaps, including authoring tools, standards for integrating SSML in web documents, and assistive technology support. In W3C, the Pronunciation Task Force https://www.w3.org/WAI/APA/task-forces/pronunciation/ is working to define a standard mechanism to include SSML into HTML. The goal of this code sprint project is to focus on an easy to use (and accessible) tool simplify the authoring of speech markup for purposes of exercising the proposed standard with real world content.
+ 
+ 
 Currently, there is no standards-based mechanism for incorporating SSML into HTML to provide pronunciation or presentational hinting to assistive technologies which render text using text to speech synthesis (such as screen readers and read aloud tools). This issue has been previously shared with the WAI-ARIA group at TPAC 2016 [1]. 
 
 The need for accurate pronunciation or presentation of spoken content is important in educational content, and critical in educational assessment. Across assessment vendors, a variety of approaches have been used to solve this problem, ranging from improper use of the WAI-ARIA standard, to creation of custom attributes or data-attributes. There is no consistent approach, and thus no interoperability. Further, some of these approaches are problematic for braille users when hinted text intended for TTS spoken presentation is also rendered on the refreshable braille display. 
