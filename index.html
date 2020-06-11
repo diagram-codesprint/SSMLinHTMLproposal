@@ -156,7 +156,16 @@
 				const editArea = document.getElementById('AuthoredText');
 				const rhs = document.getElementById('targetFrame');
 				rhs.setAttribute('src', (url.includes('http') ? '' : 'https://') + url);
-				editArea.value = '';
+
+				// temp hack to see if this works
+				setTimeout(function(){
+					const targetWindow = document.getElementById('targetFrame').contentWindow;
+					const targetDoc = targetWindow.document;
+					if (targetDoc === null) {
+						alert("couldn't get contentDocument for iframe");
+					}
+					editArea.value = targetDoc.getElementsByTagName('body')[0];
+				}, 4000);
 			}
 		}
 
