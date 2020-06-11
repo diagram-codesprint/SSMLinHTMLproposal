@@ -156,19 +156,19 @@
 
 
 		function example1() {
-			document.getElementById('AuthoredText').value = "I am now <span data-ssml='{\"prosody\" : {\"rate\":\"x-fast\"}}'>speaking very fast</span> and now <span data-ssml='{\"break\": {\"strength\":\"strong\"}}'></span> at a normal rate. I am speaking <span data-ssml='{\"prosody\" : {\"rate\":\"slow\"}}'>very slow</span>.  You need to make it <span data-ssml='{\"emphasis\" : {\"level\":\"strong\"}}'>very strong should sound different</span>, very strong and now normal rate. Here <span data-ssml='{\"say-as\" : {\"interpret-as\":\"cardinal\"}}'>12345</span> is large number.";
+			document.getElementById('AuthoredText').innerText = "I am now <span data-ssml='{\"prosody\" : {\"rate\":\"x-fast\"}}'>speaking very fast</span> and now <span data-ssml='{\"break\": {\"strength\":\"strong\"}}'></span> at a normal rate. I am speaking <span data-ssml='{\"prosody\" : {\"rate\":\"slow\"}}'>very slow</span>.  You need to make it <span data-ssml='{\"emphasis\" : {\"level\":\"strong\"}}'>very strong should sound different</span>, very strong and now normal rate. Here <span data-ssml='{\"say-as\" : {\"interpret-as\":\"cardinal\"}}'>12345</span> is large number.";
 			document.getElementById('chkJSONAttr').checked = true;
 
 		}
 
 		function example2() {
-			document.getElementById('AuthoredText').value = "He was born in <span data-ssml='{\"break\": {\"strength\":\"strong\"}}'></span> <span data-ssml='{\"say-as\": {\"interpret-as\":\"cardinal\"}}'><span data-ssml='{\"emphasis\" : {\"level\":\"strong\"}}'>1875</span></span> or <span data-ssml='{\"say-as\": {\"interpret-as\":\"characters\"}}'>1875</span>. Students were told to read one book before bed. My daughter <span data-ssml='{\"sub\": {\"alias\":\"red\"}}'>read</span> two, not just one. I need a little <span data-ssml='{\"break\": {\"strength\":\"weak\"}}'></span>break before I jump to another example. <span data-ssml='{\"sub\": {\"alias\":\"World Wide Web Consortium\"}}'>W3C</span> should have <span data-ssml='{\"sub\": {\"alias\":\"Speech Synthesis Markup Language\"}}'>SSML</span> support in HTML.";
+			document.getElementById('AuthoredText').innerText = "He was born in <span data-ssml='{\"break\": {\"strength\":\"strong\"}}'></span> <span data-ssml='{\"say-as\": {\"interpret-as\":\"cardinal\"}}'><span data-ssml='{\"emphasis\" : {\"level\":\"strong\"}}'>1875</span></span> or <span data-ssml='{\"say-as\": {\"interpret-as\":\"characters\"}}'>1875</span>. Students were told to read one book before bed. My daughter <span data-ssml='{\"sub\": {\"alias\":\"red\"}}'>read</span> two, not just one. I need a little <span data-ssml='{\"break\": {\"strength\":\"weak\"}}'></span>break before I jump to another example. <span data-ssml='{\"sub\": {\"alias\":\"World Wide Web Consortium\"}}'>W3C</span> should have <span data-ssml='{\"sub\": {\"alias\":\"Speech Synthesis Markup Language\"}}'>SSML</span> support in HTML.";
 			document.getElementById('chkJSONAttr').checked = true;
 
 		}
 
 		function example3() {
-			document.getElementById('AuthoredText').value = "The objective of the Spoken Presentation Task Force is to develop normative specifications and best practices 18789 guidance collaborating with other W3C groups as appropriate, to provide for proper pronunciation in HTML content when using text to speech (TTS) synthesis. SSML is actually more than just an exercise in floccinaucinihilipilification. in the following sequence of numbers, what would be the next number to occupy the blank: 111, 222, 333, --- ";
+			document.getElementById('AuthoredText').innerText = "The objective of the Spoken Presentation Task Force is to develop normative specifications and best practices 18789 guidance collaborating with other W3C groups as appropriate, to provide for proper pronunciation in HTML content when using text to speech (TTS) synthesis. SSML is actually more than just an exercise in floccinaucinihilipilification. in the following sequence of numbers, what would be the next number to occupy the blank: 111, 222, 333, --- ";
 			document.getElementById('chkJSONAttr').checked = true;
 
 		}
