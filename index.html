@@ -174,13 +174,13 @@
 		function getFromURL() {
 			let url = prompt("Enter URL of page to edit");
 			if (url !== null) {
-				url = 'http://www.whateverorigin.org/get?url=' + encodeURIComponent((url.includes('://') ? '' : 'https://') + url);
+				url = 'https://yacdn.org/proxy/' + (url.includes('://') ? '' : 'https://') + url;
 				var client = new HttpClient();
 				client.get(url, function(response) {
 					// do something with response
 					const iframe = document.getElementById('targetFrame');
-					iframe.innerHTML = response;
-					const editArea = document.getElementById('AuthoredText').value = document.getElementsByTagName('body');
+					//iframe.documentContent.innerHTML = response;
+					const editArea = document.getElementById('AuthoredText').value = response;
 				});
 			}
 		}
