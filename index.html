@@ -72,6 +72,7 @@
 			<button onclick="getFromURL()" class="btn btn-primary btn-sm">Load Web Page</button>
 			<button onclick="example3()" class="btn btn-primary btn-sm">Plain Text</button>
 			<button onclick="clearText()" class="btn btn-danger btn-sm">Clear Text</button>
+			<button onclick="pasteText()" class="btn btn-primary btn-sm">Paste Text</button>
 
 		</div>
 		<div style="display:none;">
@@ -135,7 +136,7 @@
   </div>
   <div class="col-sm-6" style="padding:30px;">
 
-		<div id="targetFrame"  title="Page to edit"></div>
+		<div id="targetFrame" contenteditable="true"   title="Page to edit"></div>
 	</div>
 	</div>
 
@@ -205,6 +206,20 @@
 		function clearText() {
 			document.getElementById("AuthoredText").innerText = "";
 		}
+
+
+	function getSelectionText() {
+ 	 	 var text = "";
+    	if (window.getSelection) {
+        	text = window.getSelection().toString();
+    } 		else if (document.selection && document.selection.type != "Control") {
+       		 text = document.selection.createRange().text;
+    }
+    return text;
+}
+function pasteText () {
+	document.getElementById("AuthoredText").innerText = getSelectionText();
+}
 
 	</script>
 
