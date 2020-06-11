@@ -16,7 +16,7 @@
 	<script src="script.js"></script>
 	<script type="text/javascript" src="https://configuration.speechstream.net/diagram/v217/config.js"></script>
 
- 
+
 	<script>
 		function init() {
 			// for debugging, let's load
@@ -28,126 +28,129 @@
 </head>
 
 <body onload="init()">
-	<div class="container-full" >
-	<div class="row" style="padding:20px;">
+	<div class="container-full">
+		<div class="row" style="padding:20px;">
 			<div class="col-sm-6" style="padding:30px;">
-		<h1>ETS SSML Markup Tester v2.5 (10/10/2018)</h1>
-		<p><span id="instructions-section">Enter text</span> and then manually markup using the SSML data attribute
-			format (described at:
-			<a
-				href="https://github.com/mhakkinen/SSMLinHTMLproposal">https://github.com/mhakkinen/SSMLinHTMLproposal</a>),
-			by selecting the sample
-			button below, or entering text, then highlighting text, and selecting one of the SSML toolbar actions to be
-			applied to the text. The appropriate
-			SSML JSON attribute will be added. Once your text is ready, click the speak button.</p>
-		<p>Your platform must have an speech synthesizer that supports SSML if you using Windows or other platforms with
-			native SSML supporting synthesizers.
-			If using MacOS, the JSON-ized SSML will be mapped to the Apple Speech markup.
-		</p>
-		<div>
-			<button id="prosodyFast" class="btn btn-info btn-xs">Prosody Fast</button>
-			<button id="prosodySlow" class="btn btn-warning btn-xs">Prosody slow</button>
-			<button id="strongVoice" class="btn btn-success btn-xs">Emphasis Strong</button>
-			<button id="sayCardinal" class="btn btn-warning btn-xs">Say As Cardinal</button>
-			<button id="sayOrdinal" class="btn btn-warning btn-xs">Say As Ordinal</button>
-			<button id="sayChar" class="btn btn-info btn-xs">Say As Char</button>
-			<button id="breakMedium" class="btn btn-warning btn-xs">Break</button>
-			<button id="subAlias" class="btn btn-success btn-xs">Sub</button>
+				<h1>ETS SSML Markup Tester v2.5 (10/10/2018)</h1>
+				<p><span id="instructions-section">Enter text</span> and then manually markup using the SSML data
+					attribute
+					format (described at:
+					<a
+						href="https://github.com/mhakkinen/SSMLinHTMLproposal">https://github.com/mhakkinen/SSMLinHTMLproposal</a>),
+					by selecting the sample
+					button below, or entering text, then highlighting text, and selecting one of the SSML toolbar
+					actions to be
+					applied to the text. The appropriate
+					SSML JSON attribute will be added. Once your text is ready, click the speak button.</p>
+				<p>Your platform must have an speech synthesizer that supports SSML if you using Windows or other
+					platforms with
+					native SSML supporting synthesizers.
+					If using MacOS, the JSON-ized SSML will be mapped to the Apple Speech markup.
+				</p>
+				<div>
+					<button id="prosodyFast" class="btn btn-info btn-xs">Prosody Fast</button>
+					<button id="prosodySlow" class="btn btn-warning btn-xs">Prosody slow</button>
+					<button id="strongVoice" class="btn btn-success btn-xs">Emphasis Strong</button>
+					<button id="sayCardinal" class="btn btn-warning btn-xs">Say As Cardinal</button>
+					<button id="sayOrdinal" class="btn btn-warning btn-xs">Say As Ordinal</button>
+					<button id="sayChar" class="btn btn-info btn-xs">Say As Char</button>
+					<button id="breakMedium" class="btn btn-warning btn-xs">Break</button>
+					<button id="subAlias" class="btn btn-success btn-xs">Sub</button>
 
 
-			<br>
-		<!--	<textarea id="AuthoredText1" class="form-control txt" aria-labelledBy="instructions-section" rows="8"
-				cols="50"></textarea> -->
-
-				<div id="AuthoredText" contenteditable="true" class="form-control txt" style="width: 100%; height: 300px; border: 1px solid rgb(28, 24, 29); margin:10px; overflow-y:auto;">
+					<br>
+					<div id="AuthoredText" contenteditable="true" class="form-control txt"
+						style="width: 100%; height: 300px; border: 1px solid rgb(28, 24, 29); margin:10px; overflow-y:auto;">
+						<em>Copy text to here and use buttons to edit</em>
 					</div>
 
-			<br>
+					<br>
 
+				</div>
+				<div>
+
+					<button onclick="example1()" class="btn btn-primary btn-sm">JSON Example 1</button>
+					<button onclick="example2()" class="btn btn-primary btn-sm">JSON Example 2</button>
+					<button onclick="getFromURL()" class="btn btn-primary btn-sm">Load Web Page</button>
+					<button onclick="example3()" class="btn btn-primary btn-sm">Plain Text</button>
+					<button onclick="clearText()" class="btn btn-danger btn-sm">Clear Text</button>
+					<button onclick="pasteFromWeb()" class="btn btn-primary btn-sm">Edit &#x2b60; Web</button>
+					<button onclick="pasteToWeb()" class="btn btn-primary btn-sm">Edit &#x2b62; Web</button>
+
+				</div>
+				<div style="display:none;">
+					<fieldset>
+						<legend>Options for SSML markup</legend>
+						<p>Some synthesizers may require wrapping the string with the &lt;speak&gt;
+							element, and some may require the <code>&lt;? xml ?&gt;</code> prefix.</p>
+						<p>
+							<span><label for="chkWrapSSML">Wrap text with SSML <code>&lt;speak&gt;</code>:</label>
+								<input id="chkWrapSSML" type="checkbox" value="false"></span>
+							<span>
+								&nbsp;<label for="chkXMLprefix">Prefix as XML:</label>
+								<input id="chkXMLprefix" type="checkbox" value="false">
+							</span>
+						</p>
+
+					</fieldset>
+
+					<fieldset>
+						<legend>Data-Attributes</legend>
+						<p>
+							<label for="chkDataAttr">Process data attribute encoded SSML:</label>
+							<input id="chkDataAttr" type="checkbox" value="false">
+						</p>
+					</fieldset>
+
+					<fieldset>
+						<legend>Authoring content with JSON input atributes</legend>
+						<p>
+							<label for="chkJSONAttr">Process HTML with JSON to SSML:</label>
+							<input id="chkJSONAttr" type="checkbox" value="false">
+						</p>
+
+
+					</fieldset>
+				</div>
+
+				<fieldset>
+					<legend>Speech Controls</legend>
+					<p><button onclick="produceSpeech();" class="btn btn-primary">Start Reading</button> using
+						<label for="synthesizerList">Synthesizer:</label>
+						<select id="synthesizerList"></select>
+
+						<!-- button to stop speech synth -->
+						<button id="stopButton" class="btn btn-danger">Stop Reading</button>
+
+					</p>
+				</fieldset>
+
+				<fieldset>
+					<legend>
+						Visual Scratch Pad for processed text
+					</legend>
+					<div>Generated String to be synthesized (specific to platform: MacSpeech markup or SSML:</div>
+
+					<div class="codebox" id="pstruct"></div>
+					<div>JSON-ized SSML the above was generate from:</div>
+					<div class="codebox" id="result"></div>
+
+				</fieldset>
+			</div>
+			<div class="col-sm-6" style="padding:30px;">
+
+				<div id="webContent" contenteditable="true" title="Page to edit"></div>
+			</div>
 		</div>
-		<div>
-
-			<button onclick="example1()" class="btn btn-primary btn-sm">JSON Example 1</button>
-			<button onclick="example2()" class="btn btn-primary btn-sm">JSON Example 2</button>
-			<button onclick="getFromURL()" class="btn btn-primary btn-sm">Load Web Page</button>
-			<button onclick="example3()" class="btn btn-primary btn-sm">Plain Text</button>
-			<button onclick="clearText()" class="btn btn-danger btn-sm">Clear Text</button>
-			<button onclick="pasteText()" class="btn btn-primary btn-sm">Paste Text</button>
-
-		</div>
-		<div style="display:none;">
-			<fieldset>
-				<legend>Options for SSML markup</legend>
-				<p>Some synthesizers may require wrapping the string with the &lt;speak&gt;
-					element, and some may require the <code>&lt;? xml ?&gt;</code> prefix.</p>
-				<p>
-					<span><label for="chkWrapSSML">Wrap text with SSML <code>&lt;speak&gt;</code>:</label>
-						<input id="chkWrapSSML" type="checkbox" value="false"></span>
-					<span>
-						&nbsp;<label for="chkXMLprefix">Prefix as XML:</label>
-						<input id="chkXMLprefix" type="checkbox" value="false">
-					</span>
-				</p>
-
-			</fieldset>
-
-			<fieldset>
-				<legend>Data-Attributes</legend>
-				<p>
-					<label for="chkDataAttr">Process data attribute encoded SSML:</label>
-					<input id="chkDataAttr" type="checkbox" value="false">
-				</p>
-			</fieldset>
-
-			<fieldset>
-				<legend>Authoring content with JSON input atributes</legend>
-				<p>
-					<label for="chkJSONAttr">Process HTML with JSON to SSML:</label>
-					<input id="chkJSONAttr" type="checkbox" value="false">
-				</p>
-
-
-			</fieldset>
-		</div>
-
-		<fieldset>
-			<legend>Speech Controls</legend>
-			<p><button onclick="produceSpeech();" class="btn btn-primary">Start Reading</button> using
-				<label for="synthesizerList">Synthesizer:</label>
-				<select id="synthesizerList"></select>
-
-				<!-- button to stop speech synth -->
-				<button id="stopButton" class="btn btn-danger">Stop Reading</button>
-
-			</p>
-		</fieldset>
-
-		<fieldset>
-			<legend>
-				Visual Scratch Pad for processed text
-			</legend>
-			<div>Generated String to be synthesized (specific to platform: MacSpeech markup or SSML:</div>
-
-			<div class="codebox" id="pstruct"></div>
-			<div>JSON-ized SSML the above was generate from:</div>
-			<div class="codebox" id="result"></div>
-
-		</fieldset>
-  </div>
-  <div class="col-sm-6" style="padding:30px;">
-
-		<div id="targetFrame" contenteditable="true"   title="Page to edit"></div>
-	</div>
-	</div>
 
 
 		<script src="script-mac.js"></script>
 		<!-- container for platform information -->
-<div  style="padding:55px;">
-		<p id="platform"></p>
-		<footer>Questions or comments to <a href="emailto:mhakkinen@ets.org">Mark Hakkinen</a> or <a
-				href="emailto:iali@ets.org">Irfan Ali</a> </footer>
-			</div>
+		<div style="padding:55px;">
+			<p id="platform"></p>
+			<footer>Questions or comments to <a href="emailto:mhakkinen@ets.org">Mark Hakkinen</a> or <a
+					href="emailto:iali@ets.org">Irfan Ali</a> </footer>
+		</div>
 
 	</div>
 	<script type="text/javascript">
@@ -174,56 +177,44 @@
 
 		}
 
-		// From: https://stackoverflow.com/questions/247483/http-get-request-in-javascript/4033310#4033310
-		var HttpClient = function () {
-			this.get = function (aUrl, aCallback) {
-				var anHttpRequest = new XMLHttpRequest();
-				anHttpRequest.responseType = "document";
-				anHttpRequest.onload = function () {
-					if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
-						aCallback(anHttpRequest.responseXML);
-				}
-
-				anHttpRequest.open("GET", aUrl, true);
-				anHttpRequest.send(null);
-			}
-		}
-		function getFromURL(url) {
-			url = url || prompt("Enter URL of page to edit");
-			if (url !== null) {
-				url = 'https://yacdn.org/proxy/' + (url.includes('://') ? '' : 'https://') + url;
-				var client = new HttpClient();
-				client.get(url, function (response) {
-					// do something with response
-					const iframe = document.getElementById('targetFrame');
-					document.getElementById('AuthoredText').innerText = response.body.textContent;
-					iframe.appendChild(response.body.cloneNode(true));
-					$rw_tagSentences();
-				});
-			}
-		}
-
 		function clearText() {
 			document.getElementById("AuthoredText").innerText = "";
 		}
 
 
-	function getSelectionText() {
- 	 	 var text = "";
-    	if (window.getSelection) {
-        	text = window.getSelection().toString();
-    } 		else if (document.selection && document.selection.type != "Control") {
-       		 text = document.selection.createRange().text;
-    }
-    return text;
-}
-function pasteText () {
-	document.getElementById("AuthoredText").innerText = getSelectionText();
-}
+		function getWebContentSelection() {
+			const textArea = document.getElementById("webContent");
+			const doc = textArea.ownerDocument || textArea.document;
+			const win = doc.defaultView || doc.parentWindow;
+			if (typeof win.getSelection != "undefined") {
+				const sel = win.getSelection();
+				if (sel && sel.rangeCount > 0 && !sel.isCollapsed) {
+						const node = sel.getRangeAt(0).commonAncestorContainer;     // only handle single selection
+						if (node.id) {
+							node.setAttribute('data-savedID', node.id);
+						}
+						node.id = 'XXX-web-selection';
+						return node;
+				}
+			}
+		}
+
+		function pasteFromWeb() {
+			const selectedElement = getWebContentSelection();
+			const authorElement = document.getElementById("AuthoredText");
+			authorElement.textContent = '';
+			authorElement.appendChild(selectedElement.cloneNode(true));
+		}
+
+		function pasteToWeb() {
+			// not yet implemented
+			const target = document.getElementById('XXX-web-selection');
+			target.removeAttribute('data-savedID');
+		}
 
 	</script>
 
-	
+
 
 </body>
 

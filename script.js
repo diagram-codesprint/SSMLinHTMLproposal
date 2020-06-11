@@ -6,14 +6,12 @@ window.addEventListener("load", function () {
         const win = doc.defaultView || doc.parentWindow;
         if (typeof win.getSelection != "undefined") {
             const sel = win.getSelection();
-            if (sel) {
-                if (sel.rangeCount > 0 && !sel.isCollapsed) {
-                    const spanWrapper = document.createElement('span');
-                    spanWrapper.setAttribute('data-ssml', attrValue);
+            if (sel && sel.rangeCount > 0 && !sel.isCollapsed) {
+                const spanWrapper = document.createElement('span');
+                spanWrapper.setAttribute('data-ssml', attrValue);
 
-                    const range = win.getSelection().getRangeAt(0);     // only handle single selection
-                    range.surroundContents(spanWrapper);
-                }
+                const range = sel.getRangeAt(0);     // only handle single selection
+                range.surroundContents(spanWrapper);
             }
         }
     }
@@ -34,4 +32,32 @@ window.addEventListener("load", function () {
 
 
 });
+
+// From: https://stackoverflow.com/questions/247483/http-get-request-in-javascript/4033310#4033310
+var HttpClient = function () {
+    this.get = function (aUrl, aCallback) {
+        var anHttpRequest = new XMLHttpRequest();
+        anHttpRequest.responseType = "document";
+        anHttpRequest.onload = function () {
+            if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+                aCallback(anHttpRequest.responseXML);
+        }
+
+        anHttpRequest.open("GET", aUrl, true);
+        anHttpRequest.send(null);
+    }
+}
+function getFromURL(url) {
+    url = url || prompt("Enter URL of page to edit");
+    if (url !== null) {
+        url = 'https://yacdn.org/proxy/' + (url.includes('://') ? '' : 'https://') + url;
+        var client = new HttpClient();
+        client.get(url, function (response) {
+            // do something with response
+            const el = document.getElementById('webContent');
+            el.appendChild(response.body.cloneNode(true));
+            $rw_tagSentences();
+        });
+    }
+}
 
