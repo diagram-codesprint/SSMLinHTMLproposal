@@ -14,10 +14,20 @@
 		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="ssml.css">
 	<script src="script.js"></script>
+	<script type="text/javascript" src="https://configuration.speechstream.net/diagram/v217/config.js"></script>
+
+ 
+	<script>
+		function init() {
+			// for debugging, let's load
+			getFromURL('w3.org');
+			TexthelpSpeechStream.addToolbar();
+		}
+	</script>
 
 </head>
 
-<body>
+<body onload="init()">
 	<div class="container leftSide">
 		<h1>ETS SSML Markup Tester v2.5 (10/10/2018)</h1>
 		<p><span id="instructions-section">Enter text</span> and then manually markup using the SSML data attribute
@@ -150,22 +160,32 @@
 
 		}
 
-		function getFromURL() {
-			const url = prompt("Enter URL of page to edit");
-			if (url !== null) {
-				const editArea = document.getElementById('AuthoredText');
-				const rhs = document.getElementById('targetFrame');
-				rhs.setAttribute('src', (url.includes('http') ? '' : 'https://') + url);
+		// From: https://stackoverflow.com/questions/247483/http-get-request-in-javascript/4033310#4033310
+		var HttpClient = function () {
+			this.get = function (aUrl, aCallback) {
+				var anHttpRequest = new XMLHttpRequest();
+				anHttpRequest.responseType = "document";
+				anHttpRequest.onload = function () {
+					if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+						aCallback(anHttpRequest.responseXML);
+				}
 
-				// temp hack to see if this works
-				setTimeout(function(){
-					const targetWindow = document.getElementById('targetFrame').contentWindow;
-					const targetDoc = targetWindow.document;
-					if (targetDoc === null) {
-						alert("couldn't get contentDocument for iframe");
-					}
-					editArea.value = targetDoc.getElementsByTagName('body')[0];
-				}, 4000);
+				anHttpRequest.open("GET", aUrl, true);
+				anHttpRequest.send(null);
+			}
+		}
+		function getFromURL(url) {
+			url = url || prompt("Enter URL of page to edit");
+			if (url !== null) {
+				url = 'https://yacdn.org/proxy/' + (url.includes('://') ? '' : 'https://') + url;
+				var client = new HttpClient();
+				client.get(url, function (response) {
+					// do something with response
+					const iframe = document.getElementById('targetFrame');
+					document.getElementById('AuthoredText').value = response.body.textContent;
+					iframe.appendChild(response.body.cloneNode(true));
+					$rw_tagSentences();
+				});
 			}
 		}
 
@@ -175,9 +195,9 @@
 
 	</script>
 
-	<iframe id="targetFrame" class="rightSide" title="Page to edit" src="https://en.wikipedia.org/wiki/Chemical_formula" sandbox="allow-scripts allow-same-origin">
+	<div id="targetFrame" class="rightSide" title="Page to edit">
+	</div>
 
-	</iframe>
 </body>
 
 </html>
