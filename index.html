@@ -14,10 +14,31 @@
 		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="ssml.css">
 	<script src="script.js"></script>
+	<script>
+		function init() {
+			// Tried these, but CORS problem
+			//window.addEventListener('message', responseReceived, false);
+			//window.targetFrame.contentWindow.addEventListener('message', iframeMessageReceived, false);
+		}
+
+		// From: https://stackoverflow.com/questions/247483/http-get-request-in-javascript/4033310#4033310
+		var HttpClient = function () {
+			this.get = function (aUrl, aCallback) {
+				var anHttpRequest = new XMLHttpRequest();
+				anHttpRequest.onreadystatechange = function () {
+					if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+						aCallback(anHttpRequest.responseText);
+				}
+
+				anHttpRequest.open("GET", aUrl, true);
+				anHttpRequest.send(null);
+			}
+		}
+	</script>
 
 </head>
 
-<body>
+<body onload="init()">
 	<div class="container leftSide">
 		<h1>ETS SSML Markup Tester v2.5 (10/10/2018)</h1>
 		<p><span id="instructions-section">Enter text</span> and then manually markup using the SSML data attribute
@@ -151,12 +172,16 @@
 		}
 
 		function getFromURL() {
-			const url = prompt("Enter URL of page to edit");
+			let url = prompt("Enter URL of page to edit");
 			if (url !== null) {
-				const editArea = document.getElementById('AuthoredText');
-				const rhs = document.getElementById('targetFrame');
-				rhs.setAttribute('src', (url.includes('http') ? '' : 'https://') + url);
-				editArea.value = '';
+				url = 'http://www.whateverorigin.org/get?url=' + encodeURIComponent((url.includes('://') ? '' : 'https://') + url);
+				var client = new HttpClient();
+				client.get(url, function(response) {
+					// do something with response
+					const iframe = document.getElementById('targetFrame');
+					iframe.innerHTML = response;
+					const editArea = document.getElementById('AuthoredText').value = document.getElementsByTagName('body');
+				});
 			}
 		}
 
@@ -164,11 +189,26 @@
 			document.getElementById("AuthoredText").value = "";
 		}
 
+		function iframeMessageReceived(e) {
+			// process e.data
+			alert("message is :" + e.data);
+			e.source.postMessage('Message received', e.origin)
+			return false;
+		}
+
+		function responseReceived(e) {
+			// process e.data
+			alert("response is :" + e.data);
+			return false;
+		}
+
 	</script>
 
-	<iframe id="targetFrame" class="rightSide" title="Page to edit" src="https://en.wikipedia.org/wiki/Chemical_formula" sandbox="allow-scripts allow-same-origin">
+	<iframe id="targetFrame" class="rightSide" title="Page to edit"
+		src="https://en.wikipedia.org/wiki/Chemical_formula">
 
 	</iframe>
+
 </body>
 
 </html>
