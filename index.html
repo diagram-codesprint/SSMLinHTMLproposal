@@ -14,12 +14,14 @@
 		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="ssml.css">
 	<script src="script.js"></script>
+	<script type="text/javascript" src="https://configuration.speechstream.net/diagram/v217/config.js"></script>
+
+ 
 	<script>
 		function init() {
+			// for debugging, let's load
 			getFromURL('w3.org');
-			// Tried these, but CORS problem
-			//window.addEventListener('message', responseReceived, false);
-			//window.targetFrame.contentWindow.addEventListener('message', iframeMessageReceived, false);
+			TexthelpSpeechStream.addToolbar();
 		}
 	</script>
 
@@ -180,8 +182,9 @@
 				client.get(url, function (response) {
 					// do something with response
 					const iframe = document.getElementById('targetFrame');
+					document.getElementById('AuthoredText').value = response.body.textContent;
 					iframe.appendChild(response.body.cloneNode(true));
-					document.getElementById('AuthoredText').appendChild(response.body);
+					$rw_tagSentences();
 				});
 			}
 		}
@@ -190,25 +193,10 @@
 			document.getElementById("AuthoredText").value = "";
 		}
 
-		function iframeMessageReceived(e) {
-			// process e.data
-			alert("message is :" + e.data);
-			e.source.postMessage('Message received', e.origin)
-			return false;
-		}
-
-		function responseReceived(e) {
-			// process e.data
-			alert("response is :" + e.data);
-			return false;
-		}
-
 	</script>
 
-	<iframe id="targetFrame" class="rightSide" title="Page to edit"
-		src="https://en.wikipedia.org/wiki/Chemical_formula">
-
-	</iframe>
+	<div id="targetFrame" class="rightSide" title="Page to edit">
+	</div>
 
 </body>
 
