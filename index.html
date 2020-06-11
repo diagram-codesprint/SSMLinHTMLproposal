@@ -56,8 +56,12 @@
 
 
 			<br>
-			<textarea id="AuthoredText" class="form-control txt" aria-labelledBy="instructions-section" rows="8"
-				cols="50"></textarea>
+		<!--	<textarea id="AuthoredText1" class="form-control txt" aria-labelledBy="instructions-section" rows="8"
+				cols="50"></textarea> -->
+
+				<div id="AuthoredText" contenteditable="true" class="form-control txt" style="width: 100%; height: 300px; border: 1px solid rgb(28, 24, 29); margin:10px; overflow-y:auto;">
+					</div>
+
 			<br>
 
 		</div>
@@ -191,7 +195,7 @@
 				client.get(url, function (response) {
 					// do something with response
 					const iframe = document.getElementById('targetFrame');
-					document.getElementById('AuthoredText').value = response.body.textContent;
+					document.getElementById('AuthoredText').innerText = response.body.textContent;
 					iframe.appendChild(response.body.cloneNode(true));
 					$rw_tagSentences();
 				});
@@ -199,7 +203,7 @@
 		}
 
 		function clearText() {
-			document.getElementById("AuthoredText").value = "";
+			document.getElementById("AuthoredText").innerText = "";
 		}
 
 	</script>
