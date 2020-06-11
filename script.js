@@ -1,161 +1,37 @@
-window.addEventListener("load", function(){
- 
-    
-    
-    
-    //document.getElementById("prosodyBTN").readOnly = "false";
-    document.getElementById("prosodyBTN").onclick = function() {
-        var textarea = document.getElementById("AuthoredText");
-        if ('selectionStart' in textarea) {
-                // check whether some text is selected in the textarea
-            if (textarea.selectionStart != textarea.selectionEnd) {
-                var newText = textarea.value.substring (0, textarea.selectionStart) + 
-                    "<span data-ssml='{\"prosody\" : {\"rate\":\"x-fast\"}}'>" + textarea.value.substring  (textarea.selectionStart, textarea.selectionEnd) + "</span>" +
-                    textarea.value.substring (textarea.selectionEnd);
-                textarea.value = newText;
-            }
-        }
-        else {  // Internet Explorer before version 9
-                // create a range from the current selection
-            var textRange = document.selection.createRange ();
-                // check whether the selection is within the textarea
-            var rangeParent = textRange.parentElement ();
-            if (rangeParent === textarea) {
-                textRange.text = "<span data-ssml='{\"prosody\" : {\"rate\":\"x-fast\"}}'>" + textRange.text + "</span>";
-            }
-        }
-    };
+window.addEventListener("load", function () {
 
-    document.getElementById("prosodySlow").onclick = function() {
-        var textarea = document.getElementById("AuthoredText");
-        if ('selectionStart' in textarea) {
-                // check whether some text is selected in the textarea
-            if (textarea.selectionStart != textarea.selectionEnd) {
-                var newText = textarea.value.substring (0, textarea.selectionStart) + 
-                    "<span data-ssml='{\"prosody\" : {\"rate\":\"slow\"}}'>" + textarea.value.substring  (textarea.selectionStart, textarea.selectionEnd) + "</span>" +
-                    textarea.value.substring (textarea.selectionEnd);
-                textarea.value = newText;
-            }
-        }
-        else {  // Internet Explorer before version 9
-                // create a range from the current selection
-            var textRange = document.selection.createRange ();
-                // check whether the selection is within the textarea
-            var rangeParent = textRange.parentElement ();
-            if (rangeParent === textarea) {
-                textRange.text = "<span data-ssml='{\"prosody\" : {\"rate\":\"slow\"}}'>" + textRange.text + "</span>";
-            }
-        }
-    };
+    function setSSMLAttr(attrValue) {
+        const textArea = document.getElementById("AuthoredText");
+        const doc = textArea.ownerDocument || textArea.document;
+        const win = doc.defaultView || doc.parentWindow;
+        if (typeof win.getSelection != "undefined") {
+            const sel = win.getSelection();
+            if (sel) {
+                if (sel.rangeCount > 0 && !sel.isCollapsed) {
+                    const spanWrapper = document.createElement('span');
+                    spanWrapper.setAttribute('data-ssml', attrValue);
 
+                    const range = win.getSelection().getRangeAt(0);     // only handle single selection
+                    range.surroundContents(spanWrapper);
+                }
+            }
+        }
+    }
 
-    document.getElementById("sayCardinal").onclick = function() {
-        var textarea = document.getElementById("AuthoredText");
-        if ('selectionStart' in textarea) {
-                // check whether some text is selected in the textarea
-            if (textarea.selectionStart != textarea.selectionEnd) {
-                var newText = textarea.value.substring (0, textarea.selectionStart) + 
-                    "<span data-ssml='{\"say-as\": {\"interpret-as\":\"characters\"}}'>" + textarea.value.substring  (textarea.selectionStart, textarea.selectionEnd) + "</span>" +
-                    textarea.value.substring (textarea.selectionEnd);
-                textarea.value = newText;
-            }
-        }
-        else {  // Internet Explorer before version 9
-                // create a range from the current selection
-            var textRange = document.selection.createRange ();
-                // check whether the selection is within the textarea
-            var rangeParent = textRange.parentElement ();
-            if (rangeParent === textarea) {
-                textRange.text = "<span data-ssml='{\"say-as\": {\"interpret-as\":\"characters\"}}'>" + textRange.text + "</span>";
-            }
-        }
-    };
-
-    
-    document.getElementById("sayChar").onclick = function() {
-        var textarea = document.getElementById("AuthoredText");
-        if ('selectionStart' in textarea) {
-                // check whether some text is selected in the textarea
-            if (textarea.selectionStart != textarea.selectionEnd) {
-                var newText = textarea.value.substring (0, textarea.selectionStart) + 
-                    "<span data-ssml='{\"say-as\": {\"interpret-as\":\"characters\"}}'>" + textarea.value.substring  (textarea.selectionStart, textarea.selectionEnd) + "</span>" +
-                    textarea.value.substring (textarea.selectionEnd);
-                textarea.value = newText;
-            }
-        }
-        else {  // Internet Explorer before version 9
-                // create a range from the current selection
-            var textRange = document.selection.createRange ();
-                // check whether the selection is within the textarea
-            var rangeParent = textRange.parentElement ();
-            if (rangeParent === textarea) {
-                textRange.text = "<span data-ssml='{\"say-as\": {\"interpret-as\":\"characters\"}}'>" + textRange.text + "</span>";
-            }
-        }
-    };
-    document.getElementById("strongVoice").onclick = function() {
-        var textarea = document.getElementById("AuthoredText");
-        if ('selectionStart' in textarea) {
-                // check whether some text is selected in the textarea
-            if (textarea.selectionStart != textarea.selectionEnd) {
-                var newText = textarea.value.substring (0, textarea.selectionStart) + 
-                    "<span data-ssml='{\"emphasis\" : {\"level\":\"strong\"}}'>" + textarea.value.substring  (textarea.selectionStart, textarea.selectionEnd) + "</span>" +
-                    textarea.value.substring (textarea.selectionEnd);
-                textarea.value =  newText ;
-            }
-        }
-        else {  // Internet Explorer before version 9
-                // create a range from the current selection
-            var textRange = document.selection.createRange ();
-                // check whether the selection is within the textarea
-            var rangeParent = textRange.parentElement ();
-            if (rangeParent === textarea) {
-                textRange.text = "<span data-ssml='{\"emphasis\" : {\"level\":\"strong\"}}'>" + textRange.text + "</span>";
-            }
-        }
-    };
-    document.getElementById("breakMedium").onclick = function() {
-        var textarea = document.getElementById("AuthoredText");
-        if ('selectionStart' in textarea) {
-                // check whether some text is selected in the textarea
-            if (textarea.selectionStart != textarea.selectionEnd) {
-                var newText = textarea.value.substring (0, textarea.selectionStart) + 
-                    "<span data-ssml='{\"break\": {\"strength\":\"medium\"}}'>" + textarea.value.substring  (textarea.selectionStart, textarea.selectionEnd) + "</span>" +
-                    textarea.value.substring (textarea.selectionEnd);
-                textarea.value =  newText ;
-            }
-        }
-        else {  // Internet Explorer before version 9
-                // create a range from the current selection
-            var textRange = document.selection.createRange ();
-                // check whether the selection is within the textarea
-            var rangeParent = textRange.parentElement ();
-            if (rangeParent === textarea) {
-                textRange.text = "<span data-ssml='{\"break\": {\"strength\":\"medium\"}}'>" + textRange.text + "</span>";
-            }
-        }
-    };
+    document.getElementById("prosodyFast").onclick = (() => setSSMLAttr('{"prosody" : {"rate":"x-fast"}}'));
+    document.getElementById("prosodySlow").onclick = (() => setSSMLAttr('{"prosody" : {"rate":"slow"}}'));
+    document.getElementById("strongVoice").onclick = (() => setSSMLAttr('{"emphasis" : {"level":"strong"}}'));
+    document.getElementById("sayCardinal").onclick = (() => setSSMLAttr('{"say-as": {"interpret-as": "cardinal"}}'));
+    document.getElementById("sayOrdinal").onclick = (() => setSSMLAttr('{"say-as": {"interpret-as": "ordinal"}}'));
+    document.getElementById("sayChar").onclick = (() => setSSMLAttr('{"say-as": {"interpret-as": "characters"}}'));
+    document.getElementById("breakMedium").onclick = (() => setSSMLAttr('{"break": {"strength":"medium"}}'));
     document.getElementById("subAlias").onclick = function() {
-        var textarea = document.getElementById("AuthoredText");
-        if ('selectionStart' in textarea) {
-                // check whether some text is selected in the textarea
-            if (textarea.selectionStart != textarea.selectionEnd) {
-                var newText = textarea.value.substring (0, textarea.selectionStart) + 
-                    "<span data-ssml='{\"sub\": {\"alias\":\"Speech Synthesis Markup Language\"}}'>" + textarea.value.substring  (textarea.selectionStart, textarea.selectionEnd) + "</span>" +
-                    textarea.value.substring (textarea.selectionEnd);
-                textarea.value =  newText ;
-            }
-        }
-        else {  // Internet Explorer before version 9
-                // create a range from the current selection
-            var textRange = document.selection.createRange ();
-                // check whether the selection is within the textarea
-            var rangeParent = textRange.parentElement ();
-            if (rangeParent === textarea) {
-                textRange.text = "<span data-ssml='{\"sub\": {\"alias\":\"Speech Synthesis Markup Language\"}}'>" + textRange.text + "</span>";
-            }
+        const substitutionText = prompt("Enter substitution text:")
+        if (substitutionText) {
+            setSSMLAttr(`{"sub": {"alias":"${substitutionText}"}}`);
         }
     };
-    
+
+
 });
 
