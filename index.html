@@ -28,7 +28,9 @@
 </head>
 
 <body onload="init()">
-	<div class="container leftSide">
+	<div class="container-full" >
+	<div class="row" style="padding:20px;">
+			<div class="col-sm-6" style="padding:30px;">
 		<h1>ETS SSML Markup Tester v2.5 (10/10/2018)</h1>
 		<p><span id="instructions-section">Enter text</span> and then manually markup using the SSML data attribute
 			format (described at:
@@ -54,7 +56,7 @@
 
 
 			<br>
-			<textarea id="AuthoredText" class="form-control txt" aria-labelledBy="instructions-section" rows="4"
+			<textarea id="AuthoredText" class="form-control txt" aria-labelledBy="instructions-section" rows="8"
 				cols="50"></textarea>
 			<br>
 
@@ -126,14 +128,21 @@
 			<div class="codebox" id="result"></div>
 
 		</fieldset>
+  </div>
+  <div class="col-sm-6" style="padding:30px;">
+
+		<div id="targetFrame"  title="Page to edit"></div>
+	</div>
+	</div>
+
 
 		<script src="script-mac.js"></script>
 		<!-- container for platform information -->
-
+<div  style="padding:55px;">
 		<p id="platform"></p>
 		<footer>Questions or comments to <a href="emailto:mhakkinen@ets.org">Mark Hakkinen</a> or <a
 				href="emailto:iali@ets.org">Irfan Ali</a> </footer>
-
+			</div>
 
 	</div>
 	<script type="text/javascript">
@@ -195,8 +204,7 @@
 
 	</script>
 
-	<div id="targetFrame" class="rightSide" title="Page to edit">
-	</div>
+	
 
 </body>
 
