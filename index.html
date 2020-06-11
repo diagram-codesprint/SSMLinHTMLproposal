@@ -16,23 +16,10 @@
 	<script src="script.js"></script>
 	<script>
 		function init() {
+			getFromURL('w3.org');
 			// Tried these, but CORS problem
 			//window.addEventListener('message', responseReceived, false);
 			//window.targetFrame.contentWindow.addEventListener('message', iframeMessageReceived, false);
-		}
-
-		// From: https://stackoverflow.com/questions/247483/http-get-request-in-javascript/4033310#4033310
-		var HttpClient = function () {
-			this.get = function (aUrl, aCallback) {
-				var anHttpRequest = new XMLHttpRequest();
-				anHttpRequest.onreadystatechange = function () {
-					if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
-						aCallback(anHttpRequest.responseText);
-				}
-
-				anHttpRequest.open("GET", aUrl, true);
-				anHttpRequest.send(null);
-			}
 		}
 	</script>
 
@@ -171,16 +158,30 @@
 
 		}
 
-		function getFromURL() {
-			let url = prompt("Enter URL of page to edit");
+		// From: https://stackoverflow.com/questions/247483/http-get-request-in-javascript/4033310#4033310
+		var HttpClient = function () {
+			this.get = function (aUrl, aCallback) {
+				var anHttpRequest = new XMLHttpRequest();
+				anHttpRequest.responseType = "document";
+				anHttpRequest.onload = function () {
+					if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+						aCallback(anHttpRequest.responseXML);
+				}
+
+				anHttpRequest.open("GET", aUrl, true);
+				anHttpRequest.send(null);
+			}
+		}
+		function getFromURL(url) {
+			url = url || prompt("Enter URL of page to edit");
 			if (url !== null) {
 				url = 'https://yacdn.org/proxy/' + (url.includes('://') ? '' : 'https://') + url;
 				var client = new HttpClient();
-				client.get(url, function(response) {
+				client.get(url, function (response) {
 					// do something with response
 					const iframe = document.getElementById('targetFrame');
-					//iframe.documentContent.innerHTML = response;
-					const editArea = document.getElementById('AuthoredText').value = response;
+					iframe.appendChild(response.body.cloneNode(true));
+					document.getElementById('AuthoredText').appendChild(response.body);
 				});
 			}
 		}
