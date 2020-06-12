@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width">
-	<title>ETS SSML Markup Tester v2.4</title>
+	<title>ETS SSML Markup Tester v2.6</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="ssml.css">
@@ -55,8 +55,8 @@
 <body onload="init()">
 	<div class="container-full">
 		<div class="row" style="padding:20px;">
-			<div class="col-sm-6" style="padding:30px;">
-				<h1>ETS SSML Markup Tester v2.5 (10/10/2018)</h1>
+			<div class="col-sm-6" style="padding:30px;" role="region" aria-label="Tool Section">
+				<h1>SSML Markup Tester v2.6 (06/12/2020)</h1>
 				<p><span id="instructions-section">Enter text</span> and then manually markup using the SSML data
 					attribute
 					format (described at:
@@ -73,19 +73,19 @@
 					If using MacOS, the JSON-ized SSML will be mapped to the Apple Speech markup.
 				</p>
 				<div>
-					<button id="prosodyFast" class="btn btn-info btn-xs">Prosody Fast</button>
-					<button id="prosodySlow" class="btn btn-warning btn-xs">Prosody slow</button>
-					<button id="strongVoice" class="btn btn-success btn-xs">Emphasis Strong</button>
-					<button id="sayCardinal" class="btn btn-warning btn-xs">Say As Cardinal</button>
-					<button id="sayOrdinal" class="btn btn-warning btn-xs">Say As Ordinal</button>
-					<button id="sayChar" class="btn btn-info btn-xs">Say As Char</button>
-					<button id="breakMedium" class="btn btn-warning btn-xs">Break</button>
-					<button id="subAlias" class="btn btn-success btn-xs">Sub</button>
+					<button id="prosodyFast" class="btn btn-info btn-xs"><span class="sr-only">Add SSML property </span>Prosody Fast</button>
+					<button id="prosodySlow" class="btn btn-warning btn-xs"><span class="sr-only">Add SSML property </span>Prosody slow</button>
+					<button id="strongVoice" class="btn btn-success btn-xs"><span class="sr-only">Add SSML property </span>Emphasis Strong</button>
+					<button id="sayCardinal" class="btn btn-warning btn-xs"><span class="sr-only">Add SSML property </span>Say As Cardinal</button>
+					<button id="sayOrdinal" class="btn btn-warning btn-xs"><span class="sr-only">Add SSML property </span>Say As Ordinal</button>
+					<button id="sayChar" class="btn btn-info btn-xs"><span class="sr-only">Add SSML property </span>Say As Char</button>
+					<button id="breakMedium" class="btn btn-warning btn-xs"><span class="sr-only">Add SSML property </span>Break</button>
+					<button id="subAlias" class="btn btn-success btn-xs"><span class="sr-only">Add SSML property </span>Sub</button>
 
 
 					<br>
 					<div id="AuthoredText" contenteditable="true" class="form-control txt"
-						style="width: 100%; height: 300px; border: 1px solid rgb(28, 24, 29); margin:10px; overflow-y:auto;">
+						style="width: 100%; height: 300px; border: 1px solid rgb(28, 24, 29); margin:10px; overflow-y:auto;" role="region" aria-label="Editable block to add SSML to the content">
 						<em>Copy text to here and use buttons to edit</em>
 					</div>
 
@@ -101,9 +101,9 @@
 						<button onclick="example3()" class="btn btn-primary btn-sm">Plain Text</button>
 					</div>
 					<div class="col-sm-6">
-						<input type="file" accept="htm, html" class="btn btn-primary btn-sm" onchange="getFromURL(this.files)">
-						<button onclick="pasteFromWeb()" class="btn btn-primary btn-sm">Edit &#x2b60; Web</button>
-						<button onclick="pasteToWeb()" class="btn btn-primary btn-sm">Edit &#x2b62; Web</button>	
+						<button onclick="getFromURL()" class="btn btn-primary btn-sm">Load Web Page</button>
+						<button onclick="pasteFromWeb()" class="btn btn-primary btn-sm">Add Content &#x2b60; <span class="sr-only">From the selected area on the right</span></button>
+						<button onclick="pasteToWeb()" class="btn btn-primary btn-sm">Replace Content &#x2b62; <span class="sr-only">to the selected area on the right</span></button>	
 					</div>
 
 				</div>
@@ -166,9 +166,11 @@
 
 				</fieldset>
 			</div>
-			<div class="col-sm-6" style="padding:30px;">
+			<div class="col-sm-6" style="padding:30px;" role="region" aria-label="Content Section">
+                <span class="sr-only">This content is loading from external source and may have some accessibility issues</span>
+				<div id="webContent" contenteditable="true" title="Content to Edit">
 
-				<div id="webContent" contenteditable="true" title="Page to edit"></div>
+				</div>
 			</div>
 		</div>
 
