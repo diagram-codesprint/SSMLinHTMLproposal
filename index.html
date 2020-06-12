@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 	<!-- SSML Testing Tool v3.0 
@@ -20,7 +20,6 @@
 
 	<script type="text/javascript">
 		function init() {			
-			getFromURL('w3.org'); // for debugging, let's load
 
 			const browserInfo = getBrowserInfo();
 			TexthelpSpeechStream.addToolbar();
@@ -102,7 +101,7 @@
 						<button onclick="example3()" class="btn btn-primary btn-sm">Plain Text</button>
 					</div>
 					<div class="col-sm-6">
-						<button onclick="getFromURL()" class="btn btn-primary btn-sm">Load Web Page</button>
+						<input type="file" accept="htm, html" class="btn btn-primary btn-sm" onchange="getFromURL(this.files)">
 						<button onclick="pasteFromWeb()" class="btn btn-primary btn-sm">Edit &#x2b60; Web</button>
 						<button onclick="pasteToWeb()" class="btn btn-primary btn-sm">Edit &#x2b62; Web</button>	
 					</div>
