@@ -2,9 +2,9 @@
 <html>
 
 <head>
-	<!-- SSML Testing Tool v2.3 
-			Author: Mark Hakkinen (mhakkinen@ets.org), Irfan Ali (iali@ets.org)
-			Last Modified: October 10, 2018
+	<!-- SSML Testing Tool v3.0 
+			Author: Mark Hakkinen (mhakkinen@ets.org), Irfan Ali (iali@ets.org), Neil Soiffer (soiffer@alum.mit.edu)
+			Last Modified: June 12, 2020
 			-->
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -13,15 +13,41 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="ssml.css">
-	<script src="script.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<script type="text/javascript" src="script-mac.js"></script>
 	<script type="text/javascript" src="https://configuration.speechstream.net/diagram/v217/config.js"></script>
 
 
-	<script>
-		function init() {
-			// for debugging, let's load
-			getFromURL('w3.org');
+	<script type="text/javascript">
+		function init() {			
+			getFromURL('w3.org'); // for debugging, let's load
+
+			const browserInfo = getBrowserInfo();
 			TexthelpSpeechStream.addToolbar();
+			document.getElementById("platform").innerHTML = "User Agent: " + browserInfo + " on " + navigator.platform;
+		}
+
+
+		function example1() {
+			document.getElementById('AuthoredText').innerText = "I am now <span data-ssml='{\"prosody\" : {\"rate\":\"x-fast\"}}'>speaking very fast</span> and now <span data-ssml='{\"break\": {\"strength\":\"strong\"}}'></span> at a normal rate. I am speaking <span data-ssml='{\"prosody\" : {\"rate\":\"slow\"}}'>very slow</span>.  You need to make it <span data-ssml='{\"emphasis\" : {\"level\":\"strong\"}}'>very strong should sound different</span>, very strong and now normal rate. Here <span data-ssml='{\"say-as\" : {\"interpret-as\":\"cardinal\"}}'>12345</span> is large number.";
+			document.getElementById('chkJSONAttr').checked = true;
+
+		}
+
+		function example2() {
+			document.getElementById('AuthoredText').innerText = "He was born in <span data-ssml='{\"break\": {\"strength\":\"strong\"}}'></span> <span data-ssml='{\"say-as\": {\"interpret-as\":\"cardinal\"}}'><span data-ssml='{\"emphasis\" : {\"level\":\"strong\"}}'>1875</span></span> or <span data-ssml='{\"say-as\": {\"interpret-as\":\"characters\"}}'>1875</span>. Students were told to read one book before bed. My daughter <span data-ssml='{\"sub\": {\"alias\":\"red\"}}'>read</span> two, not just one. I need a little <span data-ssml='{\"break\": {\"strength\":\"weak\"}}'></span>break before I jump to another example. <span data-ssml='{\"sub\": {\"alias\":\"World Wide Web Consortium\"}}'>W3C</span> should have <span data-ssml='{\"sub\": {\"alias\":\"Speech Synthesis Markup Language\"}}'>SSML</span> support in HTML.";
+			document.getElementById('chkJSONAttr').checked = true;
+
+		}
+
+		function example3() {
+			document.getElementById('AuthoredText').innerText = "The objective of the Spoken Presentation Task Force is to develop normative specifications and best practices 18789 guidance collaborating with other W3C groups as appropriate, to provide for proper pronunciation in HTML content when using text to speech (TTS) synthesis. SSML is actually more than just an exercise in floccinaucinihilipilification. in the following sequence of numbers, what would be the next number to occupy the blank: 111, 222, 333, --- ";
+			document.getElementById('chkJSONAttr').checked = true;
+
+		}
+
+		function clearText() {
+			document.getElementById("AuthoredText").innerText = "";
 		}
 	</script>
 
@@ -68,14 +94,17 @@
 
 				</div>
 				<div>
-
-					<button onclick="example1()" class="btn btn-primary btn-sm">JSON Example 1</button>
-					<button onclick="example2()" class="btn btn-primary btn-sm">JSON Example 2</button>
-					<button onclick="getFromURL()" class="btn btn-primary btn-sm">Load Web Page</button>
-					<button onclick="example3()" class="btn btn-primary btn-sm">Plain Text</button>
-					<button onclick="clearText()" class="btn btn-danger btn-sm">Clear Text</button>
-					<button onclick="pasteFromWeb()" class="btn btn-primary btn-sm">Edit &#x2b60; Web</button>
-					<button onclick="pasteToWeb()" class="btn btn-primary btn-sm">Edit &#x2b62; Web</button>
+					<div>
+						<button onclick="getFromURL()" class="btn btn-primary btn-sm">Load Web Page</button>
+						<button onclick="pasteFromWeb()" class="btn btn-primary btn-sm">Edit &#x2b60; Web</button>
+						<button onclick="pasteToWeb()" class="btn btn-primary btn-sm">Edit &#x2b62; Web</button>	
+					</div>
+					<div>
+						Examples: 
+						<button onclick="example1()" class="btn btn-primary btn-sm">JSON Example 1</button>
+						<button onclick="example2()" class="btn btn-primary btn-sm">JSON Example 2</button>
+						<button onclick="example3()" class="btn btn-primary btn-sm">Plain Text</button>
+					</div>
 
 				</div>
 				<div style="display:none;">
@@ -131,9 +160,9 @@
 					</legend>
 					<div>Generated String to be synthesized (specific to platform: MacSpeech markup or SSML:</div>
 
-					<div class="codebox" id="pstruct"></div>
+					<div class="codebox" id="ssml-string"></div>
 					<div>JSON-ized SSML the above was generate from:</div>
-					<div class="codebox" id="result"></div>
+					<div class="codebox" id=json-string></div>
 
 				</fieldset>
 			</div>
@@ -144,7 +173,6 @@
 		</div>
 
 
-		<script src="script-mac.js"></script>
 		<!-- container for platform information -->
 		<div style="padding:55px;">
 			<p id="platform"></p>
@@ -153,69 +181,6 @@
 		</div>
 
 	</div>
-	<script type="text/javascript">
-		var browserInfo = getBrowserInfo();
-		document.getElementById("platform").innerHTML = "User Agent: " + browserInfo + " on " + navigator.platform;
-
-
-
-		function example1() {
-			document.getElementById('AuthoredText').innerText = "I am now <span data-ssml='{\"prosody\" : {\"rate\":\"x-fast\"}}'>speaking very fast</span> and now <span data-ssml='{\"break\": {\"strength\":\"strong\"}}'></span> at a normal rate. I am speaking <span data-ssml='{\"prosody\" : {\"rate\":\"slow\"}}'>very slow</span>.  You need to make it <span data-ssml='{\"emphasis\" : {\"level\":\"strong\"}}'>very strong should sound different</span>, very strong and now normal rate. Here <span data-ssml='{\"say-as\" : {\"interpret-as\":\"cardinal\"}}'>12345</span> is large number.";
-			document.getElementById('chkJSONAttr').checked = true;
-
-		}
-
-		function example2() {
-			document.getElementById('AuthoredText').innerText = "He was born in <span data-ssml='{\"break\": {\"strength\":\"strong\"}}'></span> <span data-ssml='{\"say-as\": {\"interpret-as\":\"cardinal\"}}'><span data-ssml='{\"emphasis\" : {\"level\":\"strong\"}}'>1875</span></span> or <span data-ssml='{\"say-as\": {\"interpret-as\":\"characters\"}}'>1875</span>. Students were told to read one book before bed. My daughter <span data-ssml='{\"sub\": {\"alias\":\"red\"}}'>read</span> two, not just one. I need a little <span data-ssml='{\"break\": {\"strength\":\"weak\"}}'></span>break before I jump to another example. <span data-ssml='{\"sub\": {\"alias\":\"World Wide Web Consortium\"}}'>W3C</span> should have <span data-ssml='{\"sub\": {\"alias\":\"Speech Synthesis Markup Language\"}}'>SSML</span> support in HTML.";
-			document.getElementById('chkJSONAttr').checked = true;
-
-		}
-
-		function example3() {
-			document.getElementById('AuthoredText').innerText = "The objective of the Spoken Presentation Task Force is to develop normative specifications and best practices 18789 guidance collaborating with other W3C groups as appropriate, to provide for proper pronunciation in HTML content when using text to speech (TTS) synthesis. SSML is actually more than just an exercise in floccinaucinihilipilification. in the following sequence of numbers, what would be the next number to occupy the blank: 111, 222, 333, --- ";
-			document.getElementById('chkJSONAttr').checked = true;
-
-		}
-
-		function clearText() {
-			document.getElementById("AuthoredText").innerText = "";
-		}
-
-
-		function getWebContentSelection() {
-			const textArea = document.getElementById("webContent");
-			const doc = textArea.ownerDocument || textArea.document;
-			const win = doc.defaultView || doc.parentWindow;
-			if (typeof win.getSelection != "undefined") {
-				const sel = win.getSelection();
-				if (sel && sel.rangeCount > 0 && !sel.isCollapsed) {
-						const node = sel.getRangeAt(0).commonAncestorContainer;     // only handle single selection
-						if (node.id) {
-							node.setAttribute('data-savedID', node.id);
-						}
-						node.id = 'XXX-web-selection';
-						return node;
-				}
-			}
-		}
-
-		function pasteFromWeb() {
-			const selectedElement = getWebContentSelection();
-			const authorElement = document.getElementById("AuthoredText");
-			authorElement.textContent = '';
-			authorElement.appendChild(selectedElement.cloneNode(true));
-		}
-
-		function pasteToWeb() {
-			// not yet implemented
-			const target = document.getElementById('XXX-web-selection');
-			target.removeAttribute('data-savedID');
-		}
-
-	</script>
-
-
-
 </body>
 
 </html>
