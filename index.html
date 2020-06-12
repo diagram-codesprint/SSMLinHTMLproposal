@@ -56,7 +56,7 @@
 <body onload="init()">
 	<div class="container-full">
 		<div class="row" style="padding:20px;">
-			<div class="col-sm-6" style="padding:30px;" role="region" aria-label="Tool Section">
+			<div class="col-sm-8" style="padding:30px;" role="region" aria-label="Tool Section">
 				<h1>SSML Markup Tester v2.6 (06/12/2020)</h1>
 				<p><span id="instructions-section">Enter text</span> and then manually markup using the SSML data
 					attribute
@@ -95,16 +95,19 @@
 				</div>
 				<div class="row">
 					
-					<div class="col-sm-6">
+					<div class="col-sm-5">
 						Examples: 
 						<button onclick="example1()" class="btn btn-primary btn-sm">JSON Example 1</button>
 						<button onclick="example2()" class="btn btn-primary btn-sm">JSON Example 2</button>
 						<button onclick="example3()" class="btn btn-primary btn-sm">Plain Text</button>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-4">
 						<button onclick="getFromURL()" class="btn btn-primary btn-sm">Load Web Page</button>
 						<button onclick="pasteFromWeb()" class="btn btn-primary btn-sm">Add Content &#x2b60; <span class="sr-only">From the selected area on the right</span></button>
 						<button onclick="pasteToWeb()" class="btn btn-primary btn-sm">Replace Content &#x2b62; <span class="sr-only">to the selected area on the right</span></button>	
+					</div>
+					<div class="col-sm-3">
+						<input type="file" accept="htm, html" class="btn btn-primary btn-sm" aria-label="Load File" onchange="getFromURL(this.files)">
 					</div>
 
 				</div>
@@ -162,12 +165,12 @@
 					<div>Generated String to be synthesized (specific to platform: MacSpeech markup or SSML:</div>
 
 					<div class="codebox" id="ssml-string"></div>
-					<div>JSON-ized SSML the above was generate from:</div>
+					<div>JSON-ized SSML the above was generated from:</div>
 					<div class="codebox" id=json-string></div>
 
 				</fieldset>
 			</div>
-			<div class="col-sm-6" style="padding:30px;" role="region" aria-label="Content Section">
+			<div class="col-sm-4" style="padding:30px;" role="region" aria-label="Content Section">
                 <span class="sr-only">This content is loading from external source and may have some accessibility issues</span>
 				<div id="webContent" contenteditable="true" title="Content to Edit">
 
